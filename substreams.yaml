@@ -22,15 +22,23 @@ binaries:
 modules:
   - name: map_filter_transactions
     kind: map
-    initialBlock: 18529863
+    initialBlock: 18000000
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
       type: proto:eth.transaction.v1.Transactions
+    
+  # - name: store_filtered_transactions
+  #   kind: store
+  #   updatePolicy: set
+  #   valueType: proto:eth.transaction.v1.Transaction
+  #   initialBlock: 18000000
+  #   inputs:
+  #     - map: map_filter_transactions
 
   - name: db_out
     kind: map
-    initialBlock: 18529863
+    initialBlock: 18000000
     inputs:
       - map: map_filter_transactions
     output:

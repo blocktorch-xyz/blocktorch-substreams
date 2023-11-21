@@ -1,6 +1,6 @@
 ENDPOINT ?= mainnet.eth.streamingfast.io:443
-START_BLOCK ?= 18529863
-STOP_BLOCK ?= +10
+START_BLOCK ?= 18000000
+STOP_BLOCK ?= 0
 
 SINK_DB_NAME ?= 
 SINK_DB_URL ?= 

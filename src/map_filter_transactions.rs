@@ -53,15 +53,17 @@ fn read_call_to_oracle_filter(call: &CallView, oracles_addresses: &Vec<String>) 
     let hex_call_target_address = format!("0x{}", Hex::encode(&call.call.address));
     if ! oracles_addresses.iter().any(|address| address.to_lowercase() == hex_call_target_address) {
         return false;
-    } 
+    }
 
-    match abi::chronicle_median::functions::Read::decode(&call.call) {
-        Ok(_decoded) => {
-            log::info!("read() call found");
-            return true;
-        }
-        Err(_e) => {
-            return false;
-        }
-    } 
+    if abi::chronicle_median::functions::Read::match_call(&call.call) {
+        log::info!("read() call found");
+        return true;
+    }
+
+    if abi::chronicle_median::functions::Peek::match_call(&call.call) {
+        log::info!("peek() call found");
+        return true;
+    }
+    
+    false
 }
