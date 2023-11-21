@@ -1,0 +1,49 @@
+specVersion: v0.1.0
+package:
+  name: "oracles_substreams"
+  version: v0.1.0
+
+imports:
+  sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
+
+network: mainnet
+
+protobuf:
+  files:
+    - transaction.proto
+  importPaths:
+    - ./proto
+
+binaries:
+  default:
+    type: wasm/rust-v1
+    file: ./target/wasm32-unknown-unknown/release/substreams.wasm
+
+modules:
+  - name: map_filter_transactions
+    kind: map
+    initialBlock: 18529863
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.transaction.v1.Transactions
+
+  - name: db_out
+    kind: map
+    initialBlock: 18529863
+    inputs:
+      - map: map_filter_transactions
+    output:
+      type: proto:sf.substreams.sink.database.v1.DatabaseChanges
+
+sink:
+  module: db_out
+  type: sf.substreams.sink.sql.v1.Service
+  config:
+    schema: "./schema.sql"
+    wire_protocol_access: true
+    engine: postgres
+    postgraphile_frontend:
+      enabled: true
+    pgweb_frontend:
+      enabled: true
