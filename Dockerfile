@@ -1,23 +1,22 @@
 # Rust as the base image
 FROM rust:1.67
 
-# 1. Create a new empty shell project
-RUN USER=root cargo new --bin substreams
+RUN USER=root cargo new --bin /usr/src/app
 WORKDIR /usr/src/app
 
-# 2. Copy our manifests
-COPY ./Cargo.lock ./Cargo.lock
-COPY ./Cargo.toml ./Cargo.toml
-
-# 3. Build only the dependencies to cache them
-RUN cargo build --target wasm32-unknown-unknown --release
-RUN rm src/*.rs
-
-# 4. Now that the dependency is built, copy your source code
 COPY ./ ./
 
-# 5. Build for release.
-RUN rm ./target/release/deps/substreams*
+# Install substreams binary
+RUN LINK=$(curl -s https://api.github.com/repos/streamingfast/substreams/releases/latest | awk '/download.url.*linux_x86/ {print $2}' | sed 's/"//g') && curl -L $LINK | tar zxf -
+RUN mv substreams /usr/local/bin
+
+# Set environment variables for buf the installation and do the install
+ENV BIN="/usr/local/bin"
+ENV VERSION="1.28.1"
+RUN curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf-$(uname -s)-$(uname -m)" -o "${BIN}/buf" \
+    && chmod +x "${BIN}/buf"
+
+RUN make protogen
 RUN make build
 
-CMD ["make gui"]
+CMD ["make", "run"]
