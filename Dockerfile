@@ -9,6 +9,9 @@ COPY ./ ./
 # Install substreams binary
 RUN LINK=$(curl -s https://api.github.com/repos/streamingfast/substreams/releases/latest | awk '/download.url.*linux_x86/ {print $2}' | sed 's/"//g') && curl -L $LINK | tar zxf -
 RUN mv substreams /usr/local/bin
+# Install substreams-sink-sql binary
+RUN LINK=$(curl -s https://api.github.com/repos/streamingfast/substreams-sink-sql/releases/latest | awk '/download.url.*linux_x86/ {print $2}' | sed 's/"//g') && curl -L $LINK | tar zxf -
+RUN mv substreams-sink-sql /usr/local/bin
 
 # Set environment variables for buf the installation and do the install
 ENV BIN="/usr/local/bin"
