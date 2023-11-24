@@ -22,4 +22,4 @@ RUN curl -sSL "https://github.com/bufbuild/buf/releases/download/v${VERSION}/buf
 RUN make protogen
 RUN make build
 
-CMD ["make", "run"]
+CMD ["make", "sink"]
