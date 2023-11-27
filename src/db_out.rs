@@ -22,7 +22,7 @@ fn push_create(
     trx: &Transaction
 ) {
     changes
-        .push_change("transactions", &trx.hash, ordinal, Operation::Create)
+        .push_change("oracle_transactions", &trx.hash, ordinal, Operation::Create)
         .change("from", (None, &trx.from))
         .change("to", (None, &trx.to))
         .change("chain", (None, &trx.chain))

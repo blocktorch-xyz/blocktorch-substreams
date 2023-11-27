@@ -1,6 +1,6 @@
-create table transactions
+create table oracle_transactions
 (
-    "hash"          text not null constraint transactions_pk primary key,
+    "hash"          text not null constraint oracle_transactions_pk primary key,
     "from"          text,
     "to"            text,
     "chain"         text,

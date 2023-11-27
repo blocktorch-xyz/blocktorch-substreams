@@ -1,10 +1,8 @@
-ENDPOINT ?= mainnet.eth.streamingfast.io:443
+-include .env
+export
+
 START_BLOCK ?= 18000000
 STOP_BLOCK ?= 0
-
-SINK_DB_NAME ?= 
-SINK_DB_URL ?= 
-SINK_DB_PASS ?= 
 
 .PHONY: build
 build:
@@ -14,13 +12,10 @@ build:
 run: build
 	substreams run -e $(ENDPOINT) substreams.yaml map_filter_transactions -s $(START_BLOCK) -t $(STOP_BLOCK)
 
-.PHONY: setup-sink
-setup-sink:
-	substreams-sink-sql setup "psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" ./sink/substreams.dev.yaml
-
 .PHONY: sink
 sink: build
-	substreams-sink-sql run "psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" ./sink/substreams.dev.yaml --on-module-hash-mistmatch=warn
+	substreams-sink-sql setup "psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" substreams.yaml || true
+	substreams-sink-sql run "psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" substreams.yaml --on-module-hash-mistmatch=warn
 
 .PHONY: gui
 gui: build
@@ -33,3 +28,7 @@ protogen:
 .PHONY: pack
 pack: build
 	substreams pack substreams.yaml
+
+.PHONY: cursor-read
+cursor-read:
+	substreams-sink-sql tools --dsn="psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" cursor read
