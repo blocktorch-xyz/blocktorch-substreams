@@ -1,3 +1,6 @@
+include .env
+export
+
 START_BLOCK ?= 18000000
 STOP_BLOCK ?= 0
 
