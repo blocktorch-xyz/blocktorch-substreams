@@ -68,6 +68,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "blocktorch_substreams"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "ethabi",
+ "getrandom",
+ "hex-literal",
+ "num-bigint",
+ "prost",
+ "prost-types",
+ "serde",
+ "serde_qs",
+ "substreams",
+ "substreams-database-change",
+ "substreams-ethereum",
+]
+
+[[package]]
 name = "byte-slice-cast"
 version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -400,25 +419,6 @@ name = "once_cell"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e82dad04139b71a90c080c8463fe0dc7902db5192d939bd0950f074d014339e1"
-
-[[package]]
-name = "oracles_substreams"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "chrono",
- "ethabi",
- "getrandom",
- "hex-literal",
- "num-bigint",
- "prost",
- "prost-types",
- "serde",
- "serde_qs",
- "substreams",
- "substreams-database-change",
- "substreams-ethereum",
-]
 
 [[package]]
 name = "pad"

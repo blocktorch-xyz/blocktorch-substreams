@@ -1,4 +1,4 @@
-use crate::pb::eth::transaction::v1::{Transaction, Transactions};
+use crate::pb::eth::transaction::v1::{ChronicleTransaction as Transaction, ChronicleTransactions as Transactions};
 use crate::abi;
 use substreams::{log, Hex};
 use substreams_ethereum::block_view::CallView;
@@ -10,7 +10,7 @@ struct TransactionsFilter {
 }
 
 #[substreams::handlers::map]
-fn map_filter_transactions(blk: Block) -> Result<Transactions, Vec<substreams::errors::Error>> {
+fn map_filter_chronicle_transactions(blk: Block) -> Result<Transactions, Vec<substreams::errors::Error>> {
     let filter = compose_filters();
     let header = blk.header.unwrap();
 
@@ -49,18 +49,18 @@ fn apply_filter(transaction: &TransactionTrace, filter: &TransactionsFilter) -> 
     return transaction.calls().any(|call| read_call_to_oracle_filter(&call, &filter.to))
 }
 
-fn read_call_to_oracle_filter(call: &CallView, oracles_addresses: &Vec<String>) -> bool {
+fn read_call_to_oracle_filter(call: &CallView, chronicle_addresses: &Vec<String>) -> bool {
     let hex_call_target_address = format!("0x{}", Hex::encode(&call.call.address));
-    if ! oracles_addresses.iter().any(|address| address.to_lowercase() == hex_call_target_address) {
+    if ! chronicle_addresses.iter().any(|address| address.to_lowercase() == hex_call_target_address) {
         return false;
     }
 
-    if abi::chronicle_median::functions::Read::match_call(&call.call) {
+    if abi::chronicle::median::functions::Read::match_call(&call.call) {
         log::info!("read() call found");
         return true;
     }
 
-    if abi::chronicle_median::functions::Peek::match_call(&call.call) {
+    if abi::chronicle::median::functions::Peek::match_call(&call.call) {
         log::info!("peek() call found");
         return true;
     }

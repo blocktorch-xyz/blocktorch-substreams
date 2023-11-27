@@ -1,9 +1,9 @@
 [package]
-name = "oracles_substreams"
+name = "blocktorch_substreams"
 version = "0.1.0"
-description = "Blocktorch substreams for oracles"
+description = "Blocktorch substreams for oracles, account abstraction and more"
 edition = "2021"
-repository = "https://github.com/blocktorch-xyz/oracles-substreams"
+repository = "https://github.com/blocktorch-xyz/blocktorch-substreams"
 license = "Apache 2.0"
 
 [lib]
