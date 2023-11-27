@@ -15,8 +15,9 @@ jobs:
     - name: checkout branch
       uses: actions/checkout@v3
 
-    - name: Build
-      run: make build
+    # the same build will happen inside a Docker container at the last step 
+    # - name: Build
+    #   run: make build
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
