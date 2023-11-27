@@ -1,4 +1,4 @@
-include .env
+-include .env
 export
 
 START_BLOCK ?= 18000000
