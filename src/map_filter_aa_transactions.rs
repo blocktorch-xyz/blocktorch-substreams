@@ -5,7 +5,6 @@ use substreams_ethereum::{Function, Event};
 use substreams_ethereum::block_view::{CallView, LogView};
 use substreams_ethereum::pb::eth::v2::{Block, TransactionTrace, CallType};
 
-// #[derive(Deserialize)]
 struct TransactionFilters {
     filters: Vec<TransactionFilter>
 }
@@ -17,7 +16,17 @@ struct TransactionFilter {
 #[substreams::handlers::map]
 fn map_filter_aa_transactions(blk: Block) -> Result<Transactions, Vec<substreams::errors::Error>> {
     // let filters = parse_filters_from_params(params)?;
-    let filters = compose_filters();
+    let chain_name = option_env!("CHAIN_NAME").ok_or_else(|| {
+        vec![substreams::errors::Error::msg("CHAIN_NAME environment variable is not set")]
+    })?;
+    let erc4337_addresses_str = option_env!("AA_ERC4337_ADDRESSES").ok_or_else(|| {
+        vec![substreams::errors::Error::msg("AA_ERC4337_ADDRESSES environment variable is not set")]
+    })?;
+    let safe_addresses_str = option_env!("AA_SAFE_ADDRESSES").ok_or_else(|| {
+        vec![substreams::errors::Error::msg("AA_SAFE_ADDRESSES environment variable is not set")]
+    })?;
+
+    let filters = compose_filters(&erc4337_addresses_str, &safe_addresses_str);
     let header = blk.header.unwrap();
 
     let transactions: Vec<Transaction> = blk
@@ -29,7 +38,7 @@ fn map_filter_aa_transactions(blk: Block) -> Result<Transactions, Vec<substreams
                     from: Hex::encode(&trans.from),
                     to: Hex::encode(&trans.to),
                     hash: Hex::encode(&trans.hash),
-                    chain: "ethereum".to_owned(),
+                    chain: chain_name.to_owned(),
                     account_abstraction_type: aa_trans_type.unwrap(),
                     status: trans.status().as_str_name().to_owned(),
                     timestamp: Some(header.timestamp.as_ref().unwrap().clone())
@@ -43,20 +52,22 @@ fn map_filter_aa_transactions(blk: Block) -> Result<Transactions, Vec<substreams
     Ok(Transactions { transactions })
 }
 
-fn compose_filters() -> TransactionFilters {
+fn compose_filters(erc4337_addresses_str: &str, safe_addresses_str: &str) -> TransactionFilters {
+
+
     let erc4337_filter = TransactionFilter {
-        to: vec!["0x5ff137d4b0fdcd49dca30c7cf57e578a026d2789".to_string()],
+        to: erc4337_addresses_str
+                .split(',')
+                .map(|s| s.to_lowercase())
+                .collect::<Vec<_>>(),
         account_abstraction_type: "erc4337".to_string(),
     };
 
     let safe_filter = TransactionFilter {
-        to: vec![
-            "0xb6029EA3B2c51D09a50B53CA8012FeEB05bDa35A".to_string(),   // v1.0.0
-            "0x34CfAC646f301356fAa8B21e94227e3583Fe3F5F".to_string(),   // v1.1.1
-            "0x6851D6fDFAfD08c0295C392436245E5bc78B0185".to_string(),   // v1.2.0
-            "0xd9Db270c1B5E3Bd161E8c8503c55cEABeE709552".to_string(),   // v1.3.0
-            "0x41675C099F32341bf84BFc5382aF534df5C7461a".to_string(),   // v1.4.1
-        ],
+        to: safe_addresses_str
+                .split(',')
+                .map(|s| s.to_lowercase())
+                .collect::<Vec<_>>(),
         account_abstraction_type: "safe".to_string(),
     };
 
