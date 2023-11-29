@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package eth.transaction.v1;
+
+import "aa_transaction.proto";
+import "chronicle_transaction.proto";
+
+message CombinedTransactions {
+  AccountAbstractionTransactions accountAbstractionTransactions = 1;
+  ChronicleTransactions chronicleTransactions = 2;
+}
