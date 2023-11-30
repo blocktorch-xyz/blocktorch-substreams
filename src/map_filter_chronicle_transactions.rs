@@ -11,7 +11,14 @@ struct TransactionsFilter {
 
 #[substreams::handlers::map]
 fn map_filter_chronicle_transactions(blk: Block) -> Result<Transactions, Vec<substreams::errors::Error>> {
-    let filter = compose_filters();
+    let chain_name = option_env!("CHAIN_NAME").ok_or_else(|| {
+        vec![substreams::errors::Error::msg("CHAIN_NAME environment variable is not set")]
+    })?;
+    let chronicle_addresses_str = option_env!("CHRONICLE_ADDRESSES").ok_or_else(|| {
+        vec![substreams::errors::Error::msg("CHRONICLE_ADDRESSES environment variable is not set")]
+    })?;
+
+    let filter = compose_filters(&chronicle_addresses_str);
     let header = blk.header.unwrap();
 
     let transactions: Vec<Transaction> = blk
@@ -21,7 +28,7 @@ fn map_filter_chronicle_transactions(blk: Block) -> Result<Transactions, Vec<sub
             from: Hex::encode(&trans.from),
             to: Hex::encode(&trans.to),
             hash: Hex::encode(&trans.hash),
-            chain: "ethereum".to_owned(),
+            chain: chain_name.to_owned(),
             status: trans.status().as_str_name().to_owned(),
             timestamp: Some(header.timestamp.as_ref().unwrap().clone())
         })
@@ -30,16 +37,12 @@ fn map_filter_chronicle_transactions(blk: Block) -> Result<Transactions, Vec<sub
     Ok(Transactions { transactions })
 }
 
-fn compose_filters() -> TransactionsFilter {
+fn compose_filters(chronicle_addresses_str: &str) -> TransactionsFilter {
     let filter = TransactionsFilter {
-        to: vec![
-            "0xe0F30cb149fAADC7247E953746Be9BbBB6B5751f".to_lowercase(),   // BTC / USD
-            "0x64de91f5a373cd4c28de3600cb34c7c6ce410c85".to_lowercase(),   // ETH / USD
-            "0x31bfa908637c29707e155cfac3a50c9823bf8723".to_lowercase(),   // GNO / USD
-            "0xdbbe5e9b1daa91430cf0772fcebe53f6c6f137df".to_lowercase(),   // MKR / USD
-            "0xf86360f0127f8a441cfca332c75992d1c692b3d1".to_lowercase(),   // RETH / USD
-            "0x2f73b6567b866302e132273f67661fb89b5a66f2".to_lowercase(),   // WSTETH / USD
-        ]
+        to: chronicle_addresses_str
+            .split(',')
+            .map(|s| s.to_lowercase())
+            .collect::<Vec<_>>()
     };
     
     return filter;
