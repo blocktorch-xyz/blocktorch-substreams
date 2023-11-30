@@ -10,7 +10,7 @@ build:
 
 .PHONY: run
 run: build
-	substreams run -e $(ENDPOINT) substreams.yaml db_out -s $(START_BLOCK) -t $(STOP_BLOCK)
+	substreams run -e $(ENDPOINT) substreams.yaml map_combine_transactions -s $(START_BLOCK) -t $(STOP_BLOCK)
 
 .PHONY: sink
 sink: build
