@@ -48,9 +48,9 @@ pub struct AccountAbstractionTransaction {
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CombinedTransactions {
-    #[prost(message, optional, tag="1")]
-    pub account_abstraction_transactions: ::core::option::Option<AccountAbstractionTransactions>,
-    #[prost(message, optional, tag="2")]
-    pub chronicle_transactions: ::core::option::Option<ChronicleTransactions>,
+    #[prost(message, repeated, tag="1")]
+    pub account_abstraction_transactions: ::prost::alloc::vec::Vec<AccountAbstractionTransaction>,
+    #[prost(message, repeated, tag="2")]
+    pub chronicle_transactions: ::prost::alloc::vec::Vec<ChronicleTransaction>,
 }
 // @@protoc_insertion_point(module)
