@@ -1,6 +1,6 @@
 specVersion: v0.1.0
 package:
-  name: "oracles_substreams"
+  name: "blocktorch_substreams"
   version: v0.1.0
 
 imports:
@@ -10,7 +10,9 @@ network: mainnet
 
 protobuf:
   files:
-    - transaction.proto
+    - chronicle_transaction.proto
+    - aa_transaction.proto
+    - combined_transactions.proto
   importPaths:
     - ./proto
 
@@ -20,27 +22,33 @@ binaries:
     file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
-  - name: map_filter_transactions
+  - name: map_filter_aa_transactions
     kind: map
-    initialBlock: 18000000
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.Transactions
-    
-  # - name: store_filtered_transactions
-  #   kind: store
-  #   updatePolicy: set
-  #   valueType: proto:eth.transaction.v1.Transaction
-  #   initialBlock: 18000000
-  #   inputs:
-  #     - map: map_filter_transactions
+      type: proto:eth.transaction.v1.AccountAbstractionTransactions
 
+  - name: map_filter_chronicle_transactions
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.transaction.v1.ChronicleTransactions
+  
+  - name: map_combine_transactions
+    kind: map
+    inputs:
+      - map: map_filter_aa_transactions
+      - map: map_filter_chronicle_transactions
+    output:
+      type: proto:eth.transaction.v1.CombinedTransactions
+    
   - name: db_out
     kind: map
-    initialBlock: 18000000
     inputs:
-      - map: map_filter_transactions
+      - map: map_filter_aa_transactions
+      - map: map_filter_chronicle_transactions
     output:
       type: proto:sf.substreams.sink.database.v1.DatabaseChanges
 
