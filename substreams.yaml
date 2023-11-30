@@ -24,7 +24,6 @@ binaries:
 modules:
   - name: map_filter_aa_transactions
     kind: map
-    initialBlock: 18664500
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
@@ -32,7 +31,6 @@ modules:
 
   - name: map_filter_chronicle_transactions
     kind: map
-    initialBlock: 18664500
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
@@ -40,7 +38,6 @@ modules:
   
   - name: map_combine_transactions
     kind: map
-    initialBlock: 18664500
     inputs:
       - map: map_filter_aa_transactions
       - map: map_filter_chronicle_transactions
@@ -49,7 +46,6 @@ modules:
     
   - name: db_out
     kind: map
-    initialBlock: 18664500
     inputs:
       - map: map_filter_aa_transactions
       - map: map_filter_chronicle_transactions
