@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package eth.transaction.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message NitroRollups {
+  repeated NitroRollup rollups = 1;
+}
+
+message NitroRollup {
+  string rollupAddress = 1;
+  string nativeTokenAddress = 2;
+  string inboxAddress = 3;
+  string outboxAddress = 4;
+  string sequencerInbox = 5;
+  google.protobuf.Timestamp createdAt = 6;
+}

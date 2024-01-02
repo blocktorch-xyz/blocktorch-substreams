@@ -1,3 +1,4 @@
+mod map_index_nitro_rollup_creations;
 mod map_filter_chronicle_transactions;
 mod map_filter_aa_transactions;
 mod map_combine_transactions;

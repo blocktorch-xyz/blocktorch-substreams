@@ -12,6 +12,7 @@ protobuf:
   files:
     - chronicle_transaction.proto
     - aa_transaction.proto
+    - nitro_rollup.proto
     - combined_transactions.proto
   importPaths:
     - ./proto
@@ -22,6 +23,13 @@ binaries:
     file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
+  - name: map_index_nitro_rollup_creations
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.transaction.v1.NitroRollups
+  
   - name: map_filter_aa_transactions
     kind: map
     inputs:

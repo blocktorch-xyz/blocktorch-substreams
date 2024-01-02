@@ -47,6 +47,28 @@ pub struct AccountAbstractionTransaction {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NitroRollups {
+    #[prost(message, repeated, tag="1")]
+    pub rollups: ::prost::alloc::vec::Vec<NitroRollup>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct NitroRollup {
+    #[prost(string, tag="1")]
+    pub rollup_address: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub native_token_address: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub inbox_address: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub outbox_address: ::prost::alloc::string::String,
+    #[prost(string, tag="5")]
+    pub sequencer_inbox: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="6")]
+    pub created_at: ::core::option::Option<::prost_types::Timestamp>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CombinedTransactions {
     #[prost(message, repeated, tag="1")]
     pub account_abstraction_transactions: ::prost::alloc::vec::Vec<AccountAbstractionTransaction>,
