@@ -6,6 +6,10 @@ fn main() -> Result<(), anyhow::Error> {
         .generate()?
         .write_to_file("src/abi/rollups/arbitrum/rollup_creator.rs")?;
 
+    Abigen::new("Proxy Admin", "abi/rollups/op/proxy_admin.json")?
+        .generate()?
+        .write_to_file("src/abi/rollups/op/proxy_admin.rs")?;
+
     Abigen::new("Chronicle Median", "abi/chronicle/median.json")?
         .generate()?
         .write_to_file("src/abi/chronicle/median.rs")?;
