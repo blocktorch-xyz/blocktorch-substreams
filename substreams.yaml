@@ -12,6 +12,7 @@ protobuf:
   files:
     - chronicle_transaction.proto
     - aa_transaction.proto
+    - op_rollup.proto
     - nitro_rollup.proto
     - combined_transactions.proto
   importPaths:
@@ -29,6 +30,13 @@ modules:
       - source: sf.ethereum.type.v2.Block
     output:
       type: proto:eth.transaction.v1.NitroRollups
+  
+  - name: map_index_op_rollup_creations
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.transaction.v1.OpRollups
   
   - name: map_filter_aa_transactions
     kind: map

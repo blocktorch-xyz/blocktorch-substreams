@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package eth.transaction.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message OPRollups {
+  repeated OPRollup rollups = 1;
+}
+
+message OPRollup {
+  optional string addressManagerAddress = 1;
+  optional string proxyAdminAddress = 2;
+
+  optional string proxyToOptimismPortal = 3;
+  optional string proxyToL1CrossDomainMessenger = 4;
+  optional string proxyToL2OutputOracle = 5;
+  optional string proxyToOptimismMintableERC20Factory = 6;
+  optional string proxyToSystemConfig = 7;
+  optional string proxyToL1StandardBridge = 8;
+  optional string proxyToL1ERC721Bridge = 9;
+
+  optional string implementationOptimismPortal = 10;
+  optional string implementationL1CrossDomainMessenger = 11;
+  optional string implementationL2OutputOracle = 12;
+  optional string implementationOptimismMintableERC20Factory = 13;
+  optional string implementationSystemConfig = 14;
+  optional string implementationL1StandardBridge = 15;
+  optional string implementationL1ERC721Bridge = 16;
+
+  string deployerAddress = 17;
+}
