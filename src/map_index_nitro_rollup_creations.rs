@@ -1,6 +1,6 @@
 use crate::abi::rollups::arbitrum::rollup_creator::events::RollupCreated;
+use crate::abi::rollups::arbitrum::rollup_creator::functions::CreateRollup;
 use crate::pb::eth::transaction::v1::{NitroRollup, NitroRollups};
-use crate::abi;
 use substreams::{log, Hex};
 use substreams_ethereum::Event;
 use substreams_ethereum::block_view::CallView;
@@ -25,7 +25,7 @@ fn apply_filter(transaction: &TransactionTrace) -> bool {
 }
 
 fn create_rollup_call_filter(call: &CallView) -> bool {
-    if abi::rollups::arbitrum::rollup_creator::functions::CreateRollup::match_call(&call.call) {
+    if CreateRollup::match_call(&call.call) {
         log::info!("createRollup() call found");
         return true;
     }
@@ -34,7 +34,7 @@ fn create_rollup_call_filter(call: &CallView) -> bool {
 }
 
 fn rollup_created_event_decode(log: &Log) -> Option<RollupCreated> {
-    return abi::rollups::arbitrum::rollup_creator::events::RollupCreated::match_and_decode(log);
+    return RollupCreated::match_and_decode(log);
 }
 
 fn extract_rollup_creation_event_data(transaction: &TransactionTrace, header: &BlockHeader) -> NitroRollup {
