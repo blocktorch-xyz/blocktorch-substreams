@@ -49,7 +49,7 @@ fn try_enriching_if_implementation_contract_deployed(
         if !call.call.account_creations.is_empty() {
             for code_change in call.call.code_changes.iter() {
                 if let Some(contract_name) = code_hashes_to_check_against.get(&code_change.new_hash) {
-                    log::info!("Deployment of {} contract found", contract_name);
+                    log::info!("Deployment of {} implementation contract found", contract_name);
 
                     let rollup = rollups.entry(call.call.caller.clone()).or_insert_with(|| OpRollup {
                         address_manager_address: None,
@@ -130,6 +130,7 @@ fn enrich_with_proxy_address(
 ) {
     let proxy_address_str = Hex::encode(proxy_address);
     let implementation_address_str = Hex::encode(implementation_address);
+    log::info!("Upgrade of a proxy `0x{}` to the implementation `0x{}` found", proxy_address_str, implementation_address_str);
     for rollup in rollups.values_mut() {
         match &implementation_address_str {
             imp if Some(imp) == rollup.implementation_optimism_portal.as_ref() => {
