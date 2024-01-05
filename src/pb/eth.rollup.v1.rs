@@ -61,8 +61,22 @@ pub struct NitroRollup {
     #[prost(string, tag="4")]
     pub outbox_address: ::prost::alloc::string::String,
     #[prost(string, tag="5")]
-    pub sequencer_inbox: ::prost::alloc::string::String,
-    #[prost(message, optional, tag="6")]
+    pub rollup_event_inbox_address: ::prost::alloc::string::String,
+    #[prost(string, tag="6")]
+    pub challenge_manager_address: ::prost::alloc::string::String,
+    #[prost(string, tag="7")]
+    pub admin_proxy_address: ::prost::alloc::string::String,
+    #[prost(string, tag="8")]
+    pub sequencer_inbox_address: ::prost::alloc::string::String,
+    #[prost(string, tag="9")]
+    pub bridge_address: ::prost::alloc::string::String,
+    #[prost(string, tag="10")]
+    pub upgrade_executor_address: ::prost::alloc::string::String,
+    #[prost(string, tag="11")]
+    pub validator_utils_address: ::prost::alloc::string::String,
+    #[prost(string, tag="12")]
+    pub validator_wallet_creator_address: ::prost::alloc::string::String,
+    #[prost(message, optional, tag="13")]
     pub created_at: ::core::option::Option<::prost_types::Timestamp>,
 }
 // @@protoc_insertion_point(module)

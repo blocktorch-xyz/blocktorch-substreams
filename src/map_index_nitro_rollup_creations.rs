@@ -46,7 +46,14 @@ fn extract_rollup_creation_event_data(transaction: &TransactionTrace, header: &B
                     native_token_address: Hex::encode(creation_event.native_token),
                     inbox_address: Hex::encode(creation_event.inbox_address),
                     outbox_address: Hex::encode(creation_event.outbox),
-                    sequencer_inbox: Hex::encode(creation_event.sequencer_inbox),
+                    rollup_event_inbox_address: Hex::encode(creation_event.rollup_event_inbox),
+                    challenge_manager_address: Hex::encode(creation_event.challenge_manager),
+                    admin_proxy_address: Hex::encode(creation_event.admin_proxy),
+                    sequencer_inbox_address: Hex::encode(creation_event.sequencer_inbox),
+                    bridge_address: Hex::encode(creation_event.bridge),
+                    upgrade_executor_address: Hex::encode(creation_event.upgrade_executor),
+                    validator_utils_address: Hex::encode(creation_event.validator_utils),
+                    validator_wallet_creator_address: Hex::encode(creation_event.validator_wallet_creator),
                     created_at: Some(header.timestamp.as_ref().unwrap().clone())
                 })
         });
