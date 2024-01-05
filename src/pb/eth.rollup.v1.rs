@@ -79,4 +79,12 @@ pub struct NitroRollup {
     #[prost(message, optional, tag="13")]
     pub created_at: ::core::option::Option<::prost_types::Timestamp>,
 }
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CombinedRollups {
+    #[prost(message, repeated, tag="1")]
+    pub nitro_rollups: ::prost::alloc::vec::Vec<NitroRollup>,
+    #[prost(message, repeated, tag="2")]
+    pub op_rollups: ::prost::alloc::vec::Vec<OpRollup>,
+}
 // @@protoc_insertion_point(module)
