@@ -29,14 +29,14 @@ modules:
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.NitroRollups
+      type: proto:eth.rollup.v1.NitroRollups
   
   - name: map_index_op_rollup_creations
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.OpRollups
+      type: proto:eth.rollup.v1.OpRollups
   
   - name: map_filter_aa_transactions
     kind: map
