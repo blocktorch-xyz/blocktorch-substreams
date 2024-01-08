@@ -1,7 +1,7 @@
 specVersion: v0.1.0
 package:
   name: "blocktorch_substreams"
-  version: v0.1.0
+  version: v0.1.1
 
 imports:
   sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
@@ -10,6 +10,9 @@ network: mainnet
 
 protobuf:
   files:
+    - op_rollup.proto
+    - nitro_rollup.proto
+    - combined_rollups.proto
     - chronicle_transaction.proto
     - aa_transaction.proto
     - combined_transactions.proto
@@ -22,6 +25,28 @@ binaries:
     file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
+  - name: map_index_nitro_rollup_creations
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.rollup.v1.NitroRollups
+  
+  - name: map_index_op_rollup_creations
+    kind: map
+    inputs:
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.rollup.v1.OpRollups
+
+  - name: map_combine_rollups
+    kind: map
+    inputs:
+      - map: map_index_nitro_rollup_creations
+      - map: map_index_op_rollup_creations
+    output:
+      type: proto:eth.rollup.v1.CombinedRollups
+  
   - name: map_filter_aa_transactions
     kind: map
     inputs:

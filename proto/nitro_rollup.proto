@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package eth.rollup.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message NitroRollups {
+  repeated NitroRollup rollups = 1;
+}
+
+message NitroRollup {
+  string rollupAddress = 1;
+  string nativeTokenAddress = 2;
+  string inboxAddress = 3;
+  string outboxAddress = 4;
+  string rollupEventInboxAddress = 5;
+  string challengeManagerAddress = 6;
+  string adminProxyAddress = 7;
+  string sequencerInboxAddress = 8;
+  string bridgeAddress = 9;
+  string upgradeExecutorAddress = 10;
+  string validatorUtilsAddress = 11;
+  string validatorWalletCreatorAddress = 12;
+
+  google.protobuf.Timestamp createdAt = 13;
+}
