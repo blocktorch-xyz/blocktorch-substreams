@@ -171,6 +171,9 @@ fn check_for_typical_zk_evm_deployment_events(transaction: &TransactionTrace, po
 	let expected_events_count = 3;
 	let mut current_events_count = 0;
 	for log in transaction.receipt().logs() {
+		if log.address() != potential_zk_evm_proxy_contract {
+			continue;
+		}
 		if Initialized::match_log(&log.log) || UpdateZkEvmVersion::match_log(&log.log) || ZkEvmOwnershipTransferred::match_log(&log.log) {
 			current_events_count += 1;
 		}
@@ -195,6 +198,9 @@ fn get_proxy_admin_of_transparent_upgradable_proxy(transaction: &TransactionTrac
 
 fn check_if_proxy_points_to_global_exit_root_contract(transaction: &TransactionTrace, potential_global_exit_root_proxy: &Vec<u8>) -> bool {
 	for log in transaction.receipt().logs() {
+		if log.address() != potential_global_exit_root_proxy {
+			continue;
+		}
 		if let Some(decoded) = Upgraded::match_and_decode(&log.log) {
 			let rollup_address_instance = RollupAddress {};
 			if rollup_address_instance.call(decoded.implementation).is_some() {
