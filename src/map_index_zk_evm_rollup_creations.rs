@@ -122,6 +122,20 @@ fn try_enriching_if_deployment_found(
                         },
                         _ => {}
                     }
+										
+										if rollup.zk_evm_deployer_contract.is_none() &&
+											rollup.proxy_admin_contract.is_none() &&
+											rollup.polygon_zk_evm_timelock_contract.is_none() &&
+											rollup.native_token_contract.is_none() &&
+											rollup.polygon_zk_evm_implementation.is_none() &&
+											rollup.polygon_zk_evm_bridge_implementation.is_none() &&
+											rollup.polygon_zk_evm_global_exit_root_implementation.is_none() &&
+											rollup.polygon_zk_evm_proxy.is_none() &&
+											rollup.polygon_zk_evm_bridge_proxy.is_none() &&
+											rollup.polygon_zk_evm_global_exit_root_proxy.is_none() {
+												// all fields (except admin_address) are None, so remove the entry
+												rollups.remove(&transaction.from);
+										}
                 }
             }
         }
