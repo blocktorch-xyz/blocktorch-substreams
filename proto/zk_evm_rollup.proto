@@ -9,18 +9,18 @@ message ZkEvmRollups {
 }
 
 message ZkEvmRollup {
-	optional string ZkEVMDeployerContract = 1;
-	optional string ProxyAdminContract = 2;
-	optional string PolygonZkEVMTimelockContract = 3;
-	optional string NativeTokenContract = 4;
+	optional string zkEVMDeployerContract = 1;
+	optional string proxyAdminContract = 2;
+	optional string polygonZkEVMTimelockContract = 3;
+	optional string nativeTokenContract = 4;
 
-	optional string PolygonZkEVMImplementation = 5;
-	optional string PolygonZkEVMBridgeImplementation = 6;
-	optional string PolygonZkEVMGlobalExitRootImplementation = 7;
+	optional string polygonZkEVMImplementation = 5;
+	optional string polygonZkEVMBridgeImplementation = 6;
+	optional string polygonZkEVMGlobalExitRootImplementation = 7;
 
-	optional string PolygonZkEVMProxy = 8;
-	optional string PolygonZkEVMBridgeProxy = 9;
-	optional string PolygonZkEVMGlobalExitRootProxy = 10;
+	optional string polygonZkEVMProxy = 8;
+	optional string polygonZkEVMBridgeProxy = 9;
+	optional string polygonZkEVMGlobalExitRootProxy = 10;
 
   string adminAddress = 11;
 
