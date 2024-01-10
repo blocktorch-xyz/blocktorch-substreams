@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use crate::abi::rollups::zk_evm::polygon_zk_evm_deployer::events::{OwnershipTransferred as DeployerContractOwnershipTransferred, NewDeterministicDeployment};
 use crate::abi::rollups::zk_evm::polygon_zk_evm::events::{Initialized, UpdateZkEvmVersion, OwnershipTransferred as ZkEvmOwnershipTransferred};
 use crate::abi::rollups::zk_evm::polygon_zk_evm_global_exit_root::functions::RollupAddress;
-use crate::abi::rollups::zk_evm::transparent_upgradeable_proxy::events::{AdminChanged, Upgraded};
+use crate::abi::rollups::zk_evm::transparent_upgradeable_proxy::events::Upgraded;
 use crate::pb::eth::rollup::v1::{ZkEvmRollup, ZkEvmRollups};
 use substreams::{log, Hex};
 use substreams_ethereum::Event;
@@ -93,11 +93,6 @@ fn try_enriching_if_deployment_found(
 														// TODO: maybe add extra check on `Upgrade` event to a PolygonZkEVMBridgeImplementation contract
 														// or check that this trxn emits `Initialized` event of PolygonZkEVMBridgeImplementation ABI
 														rollup.polygon_zk_evm_bridge_proxy = Some(Hex::encode(&code_change.address));
-
-														// seting the ProxyAdmin address to be cross-checked by the sink
-														if let Some(proxy_admin_address) = get_proxy_admin_of_transparent_upgradable_proxy(transaction, &code_change.address) {
-															rollup.proxy_admin_contract = Some(Hex::encode(proxy_admin_address));
-														}
 													}
                         },
 
@@ -111,18 +106,10 @@ fn try_enriching_if_deployment_found(
 												"TransparentUpgradeableProxy" => {
 													if check_for_typical_zk_evm_deployment_events(transaction, &code_change.address) {
 														rollup.polygon_zk_evm_proxy = Some(Hex::encode(&code_change.address));
-														// seting the ProxyAdmin address to be cross-checked by the sink
-														if let Some(proxy_admin_address) = get_proxy_admin_of_transparent_upgradable_proxy(transaction, &code_change.address) {
-															rollup.proxy_admin_contract = Some(Hex::encode(proxy_admin_address));
-														}
 													} else {
 														// doing an RPC read call to the implementation contract to validate the match
 														if check_if_proxy_points_to_global_exit_root_contract(transaction, &code_change.address) {
 															rollup.polygon_zk_evm_global_exit_root_proxy = Some(Hex::encode(&code_change.address));
-														}
-														// also setting the ProxyAdmin address to be cross-checked by the sink
-														if let Some(proxy_admin_address) = get_proxy_admin_of_transparent_upgradable_proxy(transaction, &code_change.address) {
-															rollup.proxy_admin_contract = Some(Hex::encode(proxy_admin_address));
 														}
 													}
                         },
@@ -181,21 +168,6 @@ fn check_for_typical_zk_evm_deployment_events(transaction: &TransactionTrace, po
 	return current_events_count >= expected_events_count;
 }
 
-fn get_proxy_admin_of_transparent_upgradable_proxy(transaction: &TransactionTrace, transparent_upgradable_proxy_contract: &Vec<u8>) -> Option<Vec<u8>> {
-	let mut proxy_admin_address = None;
-	let mut current_ordinal = 0;
-	for log in transaction.receipt().logs() {
-		if log.address() != transparent_upgradable_proxy_contract || current_ordinal > log.ordinal() {
-			continue;
-		}
-		if let Some(decoded) = AdminChanged::match_and_decode(&log.log) {
-			proxy_admin_address = Some(decoded.new_admin);
-			current_ordinal = log.ordinal(); // keeping track jic logs are not ordered
-		}
-	}
-	return proxy_admin_address;
-}
-
 fn check_if_proxy_points_to_global_exit_root_contract(transaction: &TransactionTrace, potential_global_exit_root_proxy: &Vec<u8>) -> bool {
 	for log in transaction.receipt().logs() {
 		if log.address() != potential_global_exit_root_proxy {
@@ -210,3 +182,18 @@ fn check_if_proxy_points_to_global_exit_root_contract(transaction: &TransactionT
 	}
 	return false;
 }
+
+// fn get_proxy_admin_of_transparent_upgradable_proxy(transaction: &TransactionTrace, transparent_upgradable_proxy_contract: &Vec<u8>) -> Option<Vec<u8>> {
+// 	let mut proxy_admin_address = None;
+// 	let mut current_ordinal = 0;
+// 	for log in transaction.receipt().logs() {
+// 		if log.address() != transparent_upgradable_proxy_contract || current_ordinal > log.ordinal() {
+// 			continue;
+// 		}
+// 		if let Some(decoded) = AdminChanged::match_and_decode(&log.log) {
+// 			proxy_admin_address = Some(decoded.new_admin);
+// 			current_ordinal = log.ordinal(); // keeping track jic logs are not ordered
+// 		}
+// 	}
+// 	return proxy_admin_address;
+// }
