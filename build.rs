@@ -10,6 +10,22 @@ fn main() -> Result<(), anyhow::Error> {
         .generate()?
         .write_to_file("src/abi/rollups/op/proxy_admin.rs")?;
 
+		Abigen::new("Polygon ZkEVM Deployer", "abi/rollups/zk_evm/polygon_zk_evm_deployer.json")?
+        .generate()?
+        .write_to_file("src/abi/rollups/zk_evm/polygon_zk_evm_deployer.rs")?;
+
+		Abigen::new("Polygon ZkEVM", "abi/rollups/zk_evm/polygon_zk_evm.json")?
+        .generate()?
+        .write_to_file("src/abi/rollups/zk_evm/polygon_zk_evm.rs")?;
+
+		Abigen::new("Polygon ZkEVM Global Exit Root", "abi/rollups/zk_evm/polygon_zk_evm_global_exit_root.json")?
+        .generate()?
+        .write_to_file("src/abi/rollups/zk_evm/polygon_zk_evm_global_exit_root.rs")?;
+
+		Abigen::new("Transparent Upgradeable Proxy", "abi/rollups/zk_evm/transparent_upgradeable_proxy.json")?
+        .generate()?
+        .write_to_file("src/abi/rollups/zk_evm/transparent_upgradeable_proxy.rs")?;
+
     Abigen::new("Chronicle Median", "abi/chronicle/median.json")?
         .generate()?
         .write_to_file("src/abi/chronicle/median.rs")?;

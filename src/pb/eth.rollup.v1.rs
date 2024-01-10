@@ -1,6 +1,38 @@
 // @generated
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ZkEvmRollups {
+    #[prost(message, repeated, tag="1")]
+    pub rollups: ::prost::alloc::vec::Vec<ZkEvmRollup>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ZkEvmRollup {
+    #[prost(string, optional, tag="1")]
+    pub zk_evm_deployer_contract: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="2")]
+    pub proxy_admin_contract: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="3")]
+    pub polygon_zk_evm_timelock_contract: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="4")]
+    pub native_token_contract: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="5")]
+    pub polygon_zk_evm_implementation: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="6")]
+    pub polygon_zk_evm_bridge_implementation: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="7")]
+    pub polygon_zk_evm_global_exit_root_implementation: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="8")]
+    pub polygon_zk_evm_proxy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="9")]
+    pub polygon_zk_evm_bridge_proxy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, optional, tag="10")]
+    pub polygon_zk_evm_global_exit_root_proxy: ::core::option::Option<::prost::alloc::string::String>,
+    #[prost(string, tag="11")]
+    pub admin_address: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OpRollups {
     #[prost(message, repeated, tag="1")]
     pub rollups: ::prost::alloc::vec::Vec<OpRollup>,
@@ -86,5 +118,7 @@ pub struct CombinedRollups {
     pub nitro_rollups: ::prost::alloc::vec::Vec<NitroRollup>,
     #[prost(message, repeated, tag="2")]
     pub op_rollups: ::prost::alloc::vec::Vec<OpRollup>,
+    #[prost(message, repeated, tag="3")]
+    pub zk_evm_rollups: ::prost::alloc::vec::Vec<ZkEvmRollup>,
 }
 // @@protoc_insertion_point(module)
