@@ -55,7 +55,7 @@ fn try_enriching_if_deployment_found(
                 if let Some(contract_name) = code_hashes_to_check_against.get(&code_change.new_hash) {
                     log::info!("Deployment of {} contract found", contract_name);
 
-                    let rollup = rollups.entry(call.call.caller.clone()).or_insert_with(|| ZkEvmRollup {
+                    let rollup = rollups.entry(transaction.from.clone()).or_insert_with(|| ZkEvmRollup {
                         zk_evm_deployer_contract: None,
                         proxy_admin_contract: None,
                         polygon_zk_evm_timelock_contract: None,
@@ -66,7 +66,7 @@ fn try_enriching_if_deployment_found(
                         polygon_zk_evm_proxy: None,
                         polygon_zk_evm_bridge_proxy: None,
                         polygon_zk_evm_global_exit_root_proxy: None,
-                        admin_address: Hex::encode(&call.call.caller),
+                        admin_address: Hex::encode(&transaction.from),
                     });
 
                     match *contract_name {
