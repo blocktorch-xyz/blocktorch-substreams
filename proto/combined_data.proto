@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package eth.blocktorch.v1;
+
+import "aa_transaction.proto";
+import "chronicle_transaction.proto";
+
+import "nitro_rollup.proto";
+import "op_rollup.proto";
+import "zk_evm_rollup.proto";
+
+message CombinedData {
+	repeated AccountAbstractionTransaction accountAbstractionTransactions = 1;
+  repeated ChronicleTransaction chronicleTransactions = 2;
+
+  repeated NitroRollup nitroRollups = 3;
+  repeated OPRollup opRollups = 4;
+  repeated ZkEvmRollup zkEvmRollups = 5;
+}

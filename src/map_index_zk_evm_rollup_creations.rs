@@ -4,7 +4,7 @@ use crate::abi::rollups::zk_evm::polygon_zk_evm_deployer::events::{OwnershipTran
 use crate::abi::rollups::zk_evm::polygon_zk_evm::events::{Initialized, UpdateZkEvmVersion, OwnershipTransferred as ZkEvmOwnershipTransferred};
 use crate::abi::rollups::zk_evm::polygon_zk_evm_global_exit_root::functions::RollupAddress;
 use crate::abi::rollups::zk_evm::transparent_upgradeable_proxy::events::Upgraded;
-use crate::pb::eth::rollup::v1::{ZkEvmRollup, ZkEvmRollups};
+use crate::pb::eth::blocktorch::v1::{ZkEvmRollup, ZkEvmRollups};
 use substreams::{log, Hex};
 use substreams_ethereum::Event;
 use substreams_ethereum::pb::eth::v2::{Block, TransactionTrace};

@@ -1,4 +1,4 @@
-use crate::pb::eth::transaction::v1::{Transaction, Transactions};
+use crate::pb::eth::blocktorch::v1::{Transaction, Transactions};
 use substreams::store::{
     StoreSetIfNotExists, StoreSetIfNotExistsProto, StoreNew
 };

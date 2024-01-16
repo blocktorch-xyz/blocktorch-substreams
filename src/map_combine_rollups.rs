@@ -1,4 +1,4 @@
-use crate::pb::eth::rollup::v1::{CombinedRollups, NitroRollups, OpRollups, ZkEvmRollups};
+use crate::pb::eth::blocktorch::v1::{CombinedRollups, NitroRollups, OpRollups, ZkEvmRollups};
 
 #[substreams::handlers::map]
 fn map_combine_rollups(

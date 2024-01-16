@@ -1,4 +1,4 @@
-use crate::pb::eth::transaction::v1::{AccountAbstractionTransaction, AccountAbstractionTransactions, ChronicleTransaction, ChronicleTransactions};
+use crate::pb::eth::blocktorch::v1::{AccountAbstractionTransaction, AccountAbstractionTransactions, ChronicleTransaction, ChronicleTransactions};
 
 use substreams_database_change::pb::database::{table_change::Operation, DatabaseChanges};
 

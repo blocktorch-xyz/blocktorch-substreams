@@ -10,6 +10,7 @@ network: mainnet
 
 protobuf:
   files:
+    - combined_data.proto
     - zk_evm_rollup.proto
     - op_rollup.proto
     - nitro_rollup.proto
@@ -31,21 +32,21 @@ modules:
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.rollup.v1.NitroRollups
+      type: proto:eth.blocktorch.v1.NitroRollups
   
   - name: map_index_op_rollup_creations
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.rollup.v1.OpRollups
+      type: proto:eth.blocktorch.v1.OpRollups
     
   - name: map_index_zk_evm_rollup_creations
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.rollup.v1.ZkEvmRollups
+      type: proto:eth.blocktorch.v1.ZkEvmRollups
 
   - name: map_combine_rollups
     kind: map
@@ -54,21 +55,21 @@ modules:
       - map: map_index_op_rollup_creations
       - map: map_index_zk_evm_rollup_creations
     output:
-      type: proto:eth.rollup.v1.CombinedRollups
+      type: proto:eth.blocktorch.v1.CombinedRollups
   
   - name: map_filter_aa_transactions
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.AccountAbstractionTransactions
+      type: proto:eth.blocktorch.v1.account_abstraction.AccountAbstractionTransactions
 
   - name: map_filter_chronicle_transactions
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.ChronicleTransactions
+      type: proto:eth.blocktorch.v1.ChronicleTransactions
   
   - name: map_combine_transactions
     kind: map
@@ -76,7 +77,7 @@ modules:
       - map: map_filter_aa_transactions
       - map: map_filter_chronicle_transactions
     output:
-      type: proto:eth.transaction.v1.CombinedTransactions
+      type: proto:eth.blocktorch.v1.CombinedTransactions
     
   - name: db_out
     kind: map

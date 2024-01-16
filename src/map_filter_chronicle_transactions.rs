@@ -1,4 +1,4 @@
-use crate::pb::eth::transaction::v1::{ChronicleTransaction as Transaction, ChronicleTransactions as Transactions};
+use crate::pb::eth::blocktorch::v1::{ChronicleTransaction as Transaction, ChronicleTransactions as Transactions};
 use crate::abi;
 use substreams::{log, Hex};
 use substreams_ethereum::block_view::CallView;
