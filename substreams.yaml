@@ -5,7 +5,6 @@ package:
 
 protobuf:
   files:
-    - combined_data.proto
     - zk_evm_rollup.proto
     - op_rollup.proto
     - nitro_rollup.proto
@@ -13,6 +12,7 @@ protobuf:
     - chronicle_transaction.proto
     - aa_transaction.proto
     - combined_transactions.proto
+    - combined_data.proto
   importPaths:
     - ./proto
 
