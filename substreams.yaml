@@ -68,7 +68,7 @@ modules:
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.blocktorch.v1.account_abstraction.AccountAbstractionTransactions
+      type: proto:eth.blocktorch.v1.AccountAbstractionTransactions
 
   - name: map_filter_chronicle_transactions
     kind: map
