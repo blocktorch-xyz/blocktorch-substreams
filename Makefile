@@ -12,11 +12,6 @@ build:
 run: build
 	substreams run -e $(ENDPOINT) substreams.yaml map_combine_data -s $(START_BLOCK) -t $(STOP_BLOCK)
 
-.PHONY: sink
-sink: build
-	substreams-sink-sql setup "psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" substreams.yaml || true
-	substreams-sink-sql run "psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" substreams.yaml --on-module-hash-mistmatch=warn
-
 .PHONY: gui
 gui: build
 	substreams gui -e $(ENDPOINT) substreams.yaml map_combine_data -s $(START_BLOCK) -t $(STOP_BLOCK)
@@ -28,7 +23,3 @@ protogen:
 .PHONY: pack
 pack: build
 	substreams pack substreams.yaml
-
-.PHONY: cursor-read
-cursor-read:
-	substreams-sink-sql tools --dsn="psql://$(SINK_DB_NAME):$(SINK_DB_PASS)@$(SINK_DB_URL)?sslmode=disable" cursor read
