@@ -69,7 +69,7 @@ dependencies = [
 
 [[package]]
 name = "blocktorch_substreams"
-version = "0.1.0"
+version = "0.1.2"
 dependencies = [
  "anyhow",
  "chrono",
@@ -82,7 +82,6 @@ dependencies = [
  "serde",
  "serde_qs",
  "substreams",
- "substreams-database-change",
  "substreams-ethereum",
 ]
 
@@ -752,17 +751,6 @@ dependencies = [
  "prost-types",
  "substreams-macro",
  "thiserror",
-]
-
-[[package]]
-name = "substreams-database-change"
-version = "1.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ea09c700498fea3e50eb9aab5b0637d8bfce888be899aa68f987132923e46cc"
-dependencies = [
- "prost",
- "prost-types",
- "substreams",
 ]
 
 [[package]]

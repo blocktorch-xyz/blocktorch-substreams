@@ -1,6 +1,6 @@
 [package]
 name = "blocktorch_substreams"
-version = "0.1.0"
+version = "0.1.2"
 description = "Blocktorch substreams for oracles, account abstraction and more"
 edition = "2021"
 repository = "https://github.com/blocktorch-xyz/blocktorch-substreams"
@@ -24,8 +24,6 @@ prost-types = "0.11"
 substreams = "0.5"
 # Use latest from https://crates.io/crates/substreams-ethereum
 substreams-ethereum = "0.9"
-# Use latest from https://crates.io/crates/substreams-database-change
-substreams-database-change = "1.3"
 
 # Required so that ethabi > ethereum-types build correctly under wasm32-unknown-unknown
 [target.wasm32-unknown-unknown.dependencies]

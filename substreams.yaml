@@ -3,9 +3,6 @@ package:
   name: "blocktorch_substreams"
   version: v0.1.2
 
-imports:
-  sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
-
 network: mainnet
 
 protobuf:
@@ -89,23 +86,3 @@ modules:
       - map: map_filter_chronicle_transactions
     output:
       type: proto:eth.blocktorch.v1.CombinedTransactions
-    
-  - name: db_out
-    kind: map
-    inputs:
-      - map: map_filter_aa_transactions
-      - map: map_filter_chronicle_transactions
-    output:
-      type: proto:sf.substreams.sink.database.v1.DatabaseChanges
-
-sink:
-  module: db_out
-  type: sf.substreams.sink.sql.v1.Service
-  config:
-    schema: "./schema.sql"
-    wire_protocol_access: true
-    engine: postgres
-    postgraphile_frontend:
-      enabled: true
-    pgweb_frontend:
-      enabled: true
