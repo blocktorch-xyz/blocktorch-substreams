@@ -3,8 +3,6 @@ package:
   name: "blocktorch_substreams"
   version: v0.1.2
 
-network: mainnet
-
 protobuf:
   files:
     - combined_data.proto
