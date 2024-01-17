@@ -1,8 +1,8 @@
 -include .env
 export
 
-START_BLOCK ?= 4051031
-STOP_BLOCK ?= 0
+START_BLOCK ?= 19028181
+STOP_BLOCK ?= 19028182
 
 .PHONY: build
 build:
@@ -10,7 +10,7 @@ build:
 
 .PHONY: run
 run: build
-	substreams run -e $(ENDPOINT) substreams.yaml map_combine_data -s $(START_BLOCK) -t $(STOP_BLOCK)
+	substreams run -e $(ENDPOINT) substreams.yaml map_filter_op_batch_inbox_transactions -s $(START_BLOCK) -t $(STOP_BLOCK)
 
 .PHONY: gui
 gui: build

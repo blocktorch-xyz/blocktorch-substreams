@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package eth.blocktorch.v1;
+
+message ListOfOpBatchInboxCallData {
+  repeated OpBatchInboxCallData data = 1;
+}
+
+message OpBatchInboxCallData {
+  string call_data = 1;
+}
