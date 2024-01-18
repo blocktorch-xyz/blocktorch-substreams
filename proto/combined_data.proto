@@ -9,6 +9,8 @@ import "nitro_rollup.proto";
 import "op_rollup.proto";
 import "zk_evm_rollup.proto";
 
+import "op_batch_inbox_call_data.proto";
+
 message CombinedData {
 	repeated AccountAbstractionTransaction accountAbstractionTransactions = 1;
   repeated ChronicleTransaction chronicleTransactions = 2;
@@ -16,4 +18,6 @@ message CombinedData {
   repeated NitroRollup nitroRollups = 3;
   repeated OPRollup opRollups = 4;
   repeated ZkEvmRollup zkEvmRollups = 5;
+
+	repeated OpBatchInboxCallData op_batch_inbox_call_data = 6;
 }

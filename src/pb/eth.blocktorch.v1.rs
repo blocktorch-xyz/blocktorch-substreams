@@ -200,5 +200,7 @@ pub struct CombinedData {
     pub op_rollups: ::prost::alloc::vec::Vec<OpRollup>,
     #[prost(message, repeated, tag="5")]
     pub zk_evm_rollups: ::prost::alloc::vec::Vec<ZkEvmRollup>,
+    #[prost(message, repeated, tag="6")]
+    pub op_batch_inbox_call_data: ::prost::alloc::vec::Vec<OpBatchInboxCallData>,
 }
 // @@protoc_insertion_point(module)

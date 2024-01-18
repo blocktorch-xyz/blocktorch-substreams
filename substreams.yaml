@@ -12,7 +12,7 @@ protobuf:
     - op_rollup.proto
     - zk_evm_rollup.proto
     - combined_rollups.proto
-    - op_batch_index_call_data.proto
+    - op_batch_inbox_call_data.proto
     - combined_data.proto
   importPaths:
     - ./proto
@@ -39,6 +39,7 @@ modules:
       - map: map_index_nitro_rollup_creations
       - map: map_index_op_rollup_creations
       - map: map_index_zk_evm_rollup_creations
+      - map: map_filter_op_batch_inbox_transactions
     output:
       type: proto:eth.blocktorch.v1.CombinedData
   
