@@ -19,5 +19,5 @@ message CombinedData {
   repeated OPRollup opRollups = 4;
   repeated ZkEvmRollup zkEvmRollups = 5;
 
-	repeated OpBatchInboxCallData op_batch_inbox_call_data = 6;
+	repeated OpBatchInboxCallData list_of_op_batch_inbox_call_data = 6;
 }

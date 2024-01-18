@@ -16,7 +16,7 @@ fn map_combine_data(
 				nitro_rollups: nitro_rollups.rollups,
 				op_rollups: op_rollups.rollups,
 				zk_evm_rollups: zk_evm_rollups.rollups,
-				op_batch_inbox_call_data: list_of_calldata.data
+				list_of_op_batch_inbox_call_data: list_of_calldata.data
 			}
 		)
 }
