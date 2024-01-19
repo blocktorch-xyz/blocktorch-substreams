@@ -185,6 +185,12 @@ pub struct ListOfOpBatchInboxCallData {
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OpBatchInboxCallData {
     #[prost(string, tag="1")]
+    pub tx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub batcher_address: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub batch_inbox_address: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
     pub call_data: ::prost::alloc::string::String,
 }
 #[allow(clippy::derive_partial_eq_without_eq)]

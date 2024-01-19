@@ -26,6 +26,9 @@ fn map_filter_op_batch_inbox_transactions(params: String, blk: Block) -> Result<
 		.transaction_traces.iter()
 		.filter(|tx| tx.to == op_batch_inbox_address)
 		.map(|tx| OpBatchInboxCallData {
+			tx_hash: Hex::encode(&tx.hash),
+			batcher_address: Hex::encode(&tx.from),
+			batch_inbox_address: Hex::encode(&tx.to),
 			call_data: Hex::encode(&tx.input)
 		})
 		.collect();
