@@ -1,3 +1,4 @@
+mod map_index_zk_evm_rollup_creations;
 mod map_index_op_rollup_creations;
 mod map_index_nitro_rollup_creations;
 mod map_combine_rollups;

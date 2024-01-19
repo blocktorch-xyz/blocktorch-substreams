@@ -4,8 +4,10 @@ package eth.rollup.v1;
 
 import "nitro_rollup.proto";
 import "op_rollup.proto";
+import "zk_evm_rollup.proto";
 
 message CombinedRollups {
   repeated NitroRollup nitroRollups = 1;
   repeated OPRollup opRollups = 2;
+  repeated ZkEvmRollup zkEvmRollups = 3;
 }

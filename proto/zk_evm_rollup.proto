@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package eth.rollup.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message ZkEvmRollups {
+  repeated ZkEvmRollup rollups = 1;
+}
+
+message ZkEvmRollup {
+	optional string zkEVMDeployerContract = 1;
+	optional string proxyAdminContract = 2;
+	optional string polygonZkEVMTimelockContract = 3;
+	optional string nativeTokenContract = 4;
+
+	optional string polygonZkEVMImplementation = 5;
+	optional string polygonZkEVMBridgeImplementation = 6;
+	optional string polygonZkEVMGlobalExitRootImplementation = 7;
+
+	optional string polygonZkEVMProxy = 8;
+	optional string polygonZkEVMBridgeProxy = 9;
+	optional string polygonZkEVMGlobalExitRootProxy = 10;
+
+  string adminAddress = 11;
+
+	// TODO:
+	// deployment block number
+
+	// TODO: how to decode? ANSWER: by detecing `initialize` DELEGATE function call in the stacktrace of the transaction of PolygonZkEVM Proxy creation
+	// genesisRoot - present in the input data of PolygonZkEVM Proxy creation transaction
+	// trusted sequencer and aggregator addresses - present in the input data of PolygonZkEVM Proxy creation transaction
+
+	// TODO:
+	// verifier address - not found in any logs/calls args yet, code change hash we have is the one for a mock, so not much helpful
+}

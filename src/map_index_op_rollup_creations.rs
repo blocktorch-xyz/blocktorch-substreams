@@ -101,6 +101,26 @@ fn try_enriching_if_implementation_contract_deployed(
                         },
                         _ => {}
                     }
+		
+										if rollup.address_manager_address.is_none() &&
+											rollup.proxy_admin_address.is_none() &&
+											rollup.proxy_to_optimism_portal.is_none() &&
+											rollup.proxy_to_l1_cross_domain_messenger.is_none() &&
+											rollup.proxy_to_l2_output_oracle.is_none() &&
+											rollup.proxy_to_optimism_mintable_erc20_factory.is_none() &&
+											rollup.proxy_to_system_config.is_none() &&
+											rollup.proxy_to_l1_standard_bridge.is_none() &&
+											rollup.proxy_to_l1erc721_bridge.is_none() &&
+											rollup.implementation_optimism_portal.is_none() &&
+											rollup.implementation_l1_cross_domain_messenger.is_none() &&
+											rollup.implementation_l2_output_oracle.is_none() &&
+											rollup.implementation_optimism_mintable_erc20_factory.is_none() &&
+											rollup.implementation_system_config.is_none() &&
+											rollup.implementation_l1_standard_bridge.is_none() &&
+											rollup.implementation_l1erc721_bridge.is_none() {
+												// all fields (except admin_address) are None, so remove the entry
+												rollups.remove(&call.call.caller);
+										}
                 }
             }
         }
