@@ -1,4 +1,4 @@
-use crate::pb::eth::transaction::v1::{CombinedTransactions, AccountAbstractionTransactions, ChronicleTransactions};
+use crate::pb::eth::blocktorch::v1::{CombinedTransactions, AccountAbstractionTransactions, ChronicleTransactions};
 
 #[substreams::handlers::map]
 fn map_combine_transactions(

@@ -1,6 +1,6 @@
 use crate::abi::rollups::arbitrum::rollup_creator::events::RollupCreated;
 use crate::abi::rollups::arbitrum::rollup_creator::functions::CreateRollup;
-use crate::pb::eth::rollup::v1::{NitroRollup, NitroRollups};
+use crate::pb::eth::blocktorch::v1::{NitroRollup, NitroRollups};
 use substreams::{log, Hex};
 use substreams_ethereum::Event;
 use substreams_ethereum::block_view::CallView;

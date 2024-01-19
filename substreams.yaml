@@ -1,12 +1,7 @@
 specVersion: v0.1.0
 package:
   name: "blocktorch_substreams"
-  version: v0.1.2
-
-imports:
-  sql: https://github.com/streamingfast/substreams-sink-sql/releases/download/protodefs-v1.0.3/substreams-sink-sql-protodefs-v1.0.3.spkg
-
-network: mainnet
+  version: v0.1.3
 
 protobuf:
   files:
@@ -17,6 +12,7 @@ protobuf:
     - chronicle_transaction.proto
     - aa_transaction.proto
     - combined_transactions.proto
+    - combined_data.proto
   importPaths:
     - ./proto
 
@@ -26,26 +22,37 @@ binaries:
     file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
+  - name: map_combine_data
+    kind: map
+    inputs:
+      - map: map_filter_aa_transactions
+      - map: map_filter_chronicle_transactions
+      - map: map_index_nitro_rollup_creations
+      - map: map_index_op_rollup_creations
+      - map: map_index_zk_evm_rollup_creations
+    output:
+      type: proto:eth.blocktorch.v1.CombinedData
+  
   - name: map_index_nitro_rollup_creations
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.rollup.v1.NitroRollups
+      type: proto:eth.blocktorch.v1.NitroRollups
   
   - name: map_index_op_rollup_creations
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.rollup.v1.OpRollups
+      type: proto:eth.blocktorch.v1.OpRollups
     
   - name: map_index_zk_evm_rollup_creations
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.rollup.v1.ZkEvmRollups
+      type: proto:eth.blocktorch.v1.ZkEvmRollups
 
   - name: map_combine_rollups
     kind: map
@@ -54,21 +61,21 @@ modules:
       - map: map_index_op_rollup_creations
       - map: map_index_zk_evm_rollup_creations
     output:
-      type: proto:eth.rollup.v1.CombinedRollups
+      type: proto:eth.blocktorch.v1.CombinedRollups
   
   - name: map_filter_aa_transactions
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.AccountAbstractionTransactions
+      type: proto:eth.blocktorch.v1.AccountAbstractionTransactions
 
   - name: map_filter_chronicle_transactions
     kind: map
     inputs:
       - source: sf.ethereum.type.v2.Block
     output:
-      type: proto:eth.transaction.v1.ChronicleTransactions
+      type: proto:eth.blocktorch.v1.ChronicleTransactions
   
   - name: map_combine_transactions
     kind: map
@@ -76,24 +83,4 @@ modules:
       - map: map_filter_aa_transactions
       - map: map_filter_chronicle_transactions
     output:
-      type: proto:eth.transaction.v1.CombinedTransactions
-    
-  - name: db_out
-    kind: map
-    inputs:
-      - map: map_filter_aa_transactions
-      - map: map_filter_chronicle_transactions
-    output:
-      type: proto:sf.substreams.sink.database.v1.DatabaseChanges
-
-sink:
-  module: db_out
-  type: sf.substreams.sink.sql.v1.Service
-  config:
-    schema: "./schema.sql"
-    wire_protocol_access: true
-    engine: postgres
-    postgraphile_frontend:
-      enabled: true
-    pgweb_frontend:
-      enabled: true
+      type: proto:eth.blocktorch.v1.CombinedTransactions

@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use crate::abi::rollups::op::proxy_admin::functions::{UpgradeAndCall, Upgrade};
-use crate::pb::eth::rollup::v1::{OpRollup, OpRollups};
+use crate::pb::eth::blocktorch::v1::{OpRollup, OpRollups};
 use substreams::{log, Hex};
 use substreams_ethereum::Function;
 use substreams_ethereum::pb::eth::v2::{Block, TransactionTrace};
