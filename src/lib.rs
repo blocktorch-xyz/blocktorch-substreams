@@ -6,6 +6,7 @@ mod map_filter_chronicle_transactions;
 mod map_filter_aa_transactions;
 mod map_combine_transactions;
 mod map_combine_data;
+mod map_filter_op_batch_inbox_transactions;
 mod pb;
 mod abi;
 

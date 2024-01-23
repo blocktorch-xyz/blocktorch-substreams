@@ -1,8 +1,8 @@
 -include .env
 export
 
-START_BLOCK ?= 4051031
-STOP_BLOCK ?= 0
+START_BLOCK ?= 19028181
+STOP_BLOCK ?= 19028182
 
 .PHONY: build
 build:

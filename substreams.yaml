@@ -1,17 +1,18 @@
 specVersion: v0.1.0
 package:
   name: "blocktorch_substreams"
-  version: v0.1.3
+  version: v0.1.4
 
 protobuf:
   files:
-    - zk_evm_rollup.proto
-    - op_rollup.proto
-    - nitro_rollup.proto
-    - combined_rollups.proto
-    - chronicle_transaction.proto
     - aa_transaction.proto
+    - chronicle_transaction.proto
+    - nitro_rollup.proto
     - combined_transactions.proto
+    - op_rollup.proto
+    - zk_evm_rollup.proto
+    - combined_rollups.proto
+    - op_batch_inbox_call_data.proto
     - combined_data.proto
   importPaths:
     - ./proto
@@ -22,6 +23,14 @@ binaries:
     file: ./target/wasm32-unknown-unknown/release/substreams.wasm
 
 modules:
+  - name: map_filter_op_batch_inbox_transactions
+    kind: map
+    inputs:
+      - params: string
+      - source: sf.ethereum.type.v2.Block
+    output:
+      type: proto:eth.blocktorch.v1.ListOfOpBatchInboxCallData
+  
   - name: map_combine_data
     kind: map
     inputs:
@@ -30,6 +39,7 @@ modules:
       - map: map_index_nitro_rollup_creations
       - map: map_index_op_rollup_creations
       - map: map_index_zk_evm_rollup_creations
+      - map: map_filter_op_batch_inbox_transactions
     output:
       type: proto:eth.blocktorch.v1.CombinedData
   
@@ -84,3 +94,10 @@ modules:
       - map: map_filter_chronicle_transactions
     output:
       type: proto:eth.blocktorch.v1.CombinedTransactions
+
+network: mainnet
+
+networks:
+  mainnet:
+    params:
+      map_filter_op_batch_inbox_transactions: "op_batch_inbox=ff00000000000000000000000000000000000010"

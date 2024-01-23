@@ -83,6 +83,14 @@ pub struct NitroRollup {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CombinedTransactions {
+    #[prost(message, repeated, tag="1")]
+    pub account_abstraction_transactions: ::prost::alloc::vec::Vec<AccountAbstractionTransaction>,
+    #[prost(message, repeated, tag="2")]
+    pub chronicle_transactions: ::prost::alloc::vec::Vec<ChronicleTransaction>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct OpRollups {
     #[prost(message, repeated, tag="1")]
     pub rollups: ::prost::alloc::vec::Vec<OpRollup>,
@@ -159,6 +167,34 @@ pub struct ZkEvmRollup {
 }
 #[allow(clippy::derive_partial_eq_without_eq)]
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CombinedRollups {
+    #[prost(message, repeated, tag="1")]
+    pub nitro_rollups: ::prost::alloc::vec::Vec<NitroRollup>,
+    #[prost(message, repeated, tag="2")]
+    pub op_rollups: ::prost::alloc::vec::Vec<OpRollup>,
+    #[prost(message, repeated, tag="3")]
+    pub zk_evm_rollups: ::prost::alloc::vec::Vec<ZkEvmRollup>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListOfOpBatchInboxCallData {
+    #[prost(message, repeated, tag="1")]
+    pub data: ::prost::alloc::vec::Vec<OpBatchInboxCallData>,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct OpBatchInboxCallData {
+    #[prost(string, tag="1")]
+    pub tx_hash: ::prost::alloc::string::String,
+    #[prost(string, tag="2")]
+    pub batcher_address: ::prost::alloc::string::String,
+    #[prost(string, tag="3")]
+    pub batch_inbox_address: ::prost::alloc::string::String,
+    #[prost(string, tag="4")]
+    pub call_data: ::prost::alloc::string::String,
+}
+#[allow(clippy::derive_partial_eq_without_eq)]
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct CombinedData {
     #[prost(message, repeated, tag="1")]
     pub account_abstraction_transactions: ::prost::alloc::vec::Vec<AccountAbstractionTransaction>,
@@ -170,23 +206,7 @@ pub struct CombinedData {
     pub op_rollups: ::prost::alloc::vec::Vec<OpRollup>,
     #[prost(message, repeated, tag="5")]
     pub zk_evm_rollups: ::prost::alloc::vec::Vec<ZkEvmRollup>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CombinedRollups {
-    #[prost(message, repeated, tag="1")]
-    pub nitro_rollups: ::prost::alloc::vec::Vec<NitroRollup>,
-    #[prost(message, repeated, tag="2")]
-    pub op_rollups: ::prost::alloc::vec::Vec<OpRollup>,
-    #[prost(message, repeated, tag="3")]
-    pub zk_evm_rollups: ::prost::alloc::vec::Vec<ZkEvmRollup>,
-}
-#[allow(clippy::derive_partial_eq_without_eq)]
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CombinedTransactions {
-    #[prost(message, repeated, tag="1")]
-    pub account_abstraction_transactions: ::prost::alloc::vec::Vec<AccountAbstractionTransaction>,
-    #[prost(message, repeated, tag="2")]
-    pub chronicle_transactions: ::prost::alloc::vec::Vec<ChronicleTransaction>,
+    #[prost(message, repeated, tag="6")]
+    pub list_of_op_batch_inbox_call_data: ::prost::alloc::vec::Vec<OpBatchInboxCallData>,
 }
 // @@protoc_insertion_point(module)
