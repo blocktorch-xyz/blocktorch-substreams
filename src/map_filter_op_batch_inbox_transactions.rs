@@ -29,7 +29,8 @@ fn map_filter_op_batch_inbox_transactions(params: String, blk: Block) -> Result<
 			tx_hash: Hex::encode(&tx.hash),
 			batcher_address: Hex::encode(&tx.from),
 			batch_inbox_address: Hex::encode(&tx.to),
-			call_data: Hex::encode(&tx.input)
+			call_data: Hex::encode(&tx.input),
+			block_number: blk.number
 		})
 		.collect();
 
