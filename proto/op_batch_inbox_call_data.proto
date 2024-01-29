@@ -11,4 +11,5 @@ message OpBatchInboxCallData {
 	string batcher_address = 2;
 	string batch_inbox_address = 3;
   string call_data = 4;
+  uint64 block_number = 5;
 }
