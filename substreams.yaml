@@ -100,4 +100,4 @@ network: mainnet
 networks:
   mainnet:
     params:
-      map_filter_op_batch_inbox_transactions: "op_batch_inbox=ff00000000000000000000000000000000000010"
+      map_filter_op_batch_inbox_transactions: "op_batch_inbox_addresses[]=ff00000000000000000000000000000000000010&"
